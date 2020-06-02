@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-shop-menu-select',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shop-menu-select.page.scss'],
 })
 export class ShopMenuSelectPage implements OnInit {
+  category: any[];
+  public segmentValue: any;
 
-  constructor() { }
+  constructor(public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
   }
 
+  segmentChanged(id: any) {
+    this.segmentValue = id;
+  }
 }
