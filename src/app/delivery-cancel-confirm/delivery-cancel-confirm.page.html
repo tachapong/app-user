@@ -1,9 +1,37 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>delivery-cancel-confirm</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content>
+<ion-content mode="ios">
+  <form [formGroup]="fg" (ngSubmit)="handleSubmit()">
+    <ion-list-header color="tertiary">
+      <ion-label class="ion-margin-top">
+        <h1><b>ใส่เหตุผล</b></h1>
+      </ion-label>
+    </ion-list-header>
 
+    <ion-item color="tertiary">
+      <ion-label>สาเหตุการยกเลิก</ion-label>
+      <ion-select formControlName="heading" slot="end">
+        <ion-select-option value="รถเสีย">รถเสีย</ion-select-option>
+        <ion-select-option value="น้ำท่วม">น้ำท่วม</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-list-header color="tertiary">
+      <ion-label class="ion-margin-top">
+        <h1><b>หมายเหตุ</b></h1>
+        <ion-item color="tertiary" class="ion-padding-top" lines="none">
+          <ion-input formControlName="info" type=""></ion-input>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+  </form>
 </ion-content>
+
+<ion-footer>
+  <ion-button id="app-form-submit" (click)="handleSubmit()" color="danger" ion-button expand="full" no-margin>ตกลง
+  </ion-button>
+</ion-footer>
