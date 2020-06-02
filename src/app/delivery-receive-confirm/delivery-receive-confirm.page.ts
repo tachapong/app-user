@@ -12,4 +12,5 @@ export class DeliveryReceiveConfirmPage implements OnInit {
   ngOnInit() {
   }
 
+
 }
