@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'shop-select',
+    loadChildren: () => import('./shop-select/shop-select.module').then( m => m.ShopSelectPageModule)
+  },
 ];
 
 @NgModule({
