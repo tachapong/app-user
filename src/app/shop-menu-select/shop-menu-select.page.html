@@ -1,99 +1,146 @@
 <ion-content mode="ios" color="light">
-  <ng-container>
-    <!-- <ng-container *ngIf="data$ | async as item"> -->
-    <ion-list lines="inset" class="ion-no-padding">
-      <img src="https://fk.lnwfile.com/nd9ddz.jpg" />
-      <ion-item lines="full">
-        <ion-label>
-          <ion-note> เปิด 11.00 - 19.00 น. ทุกวัน</ion-note>
-          <h2><b>WIB Cafe</b></h2>
-          <ion-note>คาเฟ่ของหวาน</ion-note>
-          <ion-note>*4.8 15 นาที 10 บาท</ion-note>
-        </ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-segment (ionChange)="segmentChanged(category)" [(ngModel)]="category" lines="none" mode="md">
-          <ion-segment-button>
-            <ion-label color="dark">
-              <h2><b>ร้อน </b></h2>
-            </ion-label>
-          </ion-segment-button>
-          <ion-segment-button>
-            <ion-label color="dark">
-              <h2><b>เย็น </b></h2>
-            </ion-label>
-          </ion-segment-button>
-          <ion-segment-button>
-            <ion-label color="dark">
-              <h2><b>ปั่น </b></h2>
-            </ion-label>
-          </ion-segment-button>
-          <!-- <div *ngFor="let data of item">
-            <ion-segment-button *ngIf="data.products.length > 0" [value]="data.categoryId">
-              <ion-label><b> {{data.categoryName}}</b></ion-label>
-            </ion-segment-button>
-          </div> -->
-        </ion-segment>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail slot="start" class="ion-margin-vertical">
-          <img
-            src="https://travel.mthai.com/app/uploads/2014/07/%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B4%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B8%A2%E0%B9%86-14.jpg">
-        </ion-thumbnail>
-        <ion-text>
+  <ng-container *ngIf="hasLoaded == 'y'">
+    <ion-list *ngIf="data$ | async as data" lines="inset" class="ion-no-padding">
+      <div *ngIf="data?.restaurant as item">
+        <img [src]="item.bannerImage != null ? item.bannerImage:'https://fk.lnwfile.com/nd9ddz.jpg'" width="450"
+          height="170" />
+        <ion-item lines="full">
           <ion-label>
-            <h2><b>เอสเปรสโซเย็น</b></h2>
-            <ion-note>
-              <p></p>
-            </ion-note>
+            <ion-note> เปิด 11.00 - 19.00 น. ทุกวัน</ion-note>
+            <h2><b>{{item.name}}</b></h2>
+            <ion-note>{{item.note}}</ion-note>
+            <ion-note>*4.8 15 นาที 10 บาท</ion-note>
           </ion-label>
-        </ion-text>
-        <ion-note color="dark" slot="end">
-          <ion-label>
-            <h2><b>฿ 50</b></h2>
-          </ion-label>
-        </ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail slot="start" class="ion-margin-vertical">
-          <img
-            src="https://travel.mthai.com/app/uploads/2014/07/%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B4%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B8%A2%E0%B9%86-14.jpg">
-        </ion-thumbnail>
-        <ion-text>
-          <ion-label>
-            <h2><b>อะเมริกาโน่</b></h2>
-            <ion-note>
-              <p>สินค้าหมด</p>
-            </ion-note>
-          </ion-label>
-        </ion-text>
-        <ion-note color="dark" slot="end">
-          <ion-label>
-            <h2><b>฿ 50</b></h2>
-          </ion-label>
-        </ion-note>
-      </ion-item>
-      <!-- <ion-item color="light" *ngFor="let menu of data.products">
-        <ion-thumbnail slot="start" class="ion-margin-vertical">
-          <img [src]="menu.previewImageUrl != null ? menu.previewImageUrl :'assets/imgs/dfmenu.png'">
-        </ion-thumbnail>
-        <ion-text>
-          <ion-label color="dark">
-            <h2><b>{{menu.name}}</b></h2>
-            <h3><b>฿{{menu.price | number}}</b></h3>
-          </ion-label>
-          <ion-label color="danger">
-            <p></p>
-          </ion-label>
-        </ion-text>
-        <ion-note slot="end">
-          <ion-label color="dark">
-            <h2>
-              <ion-icon name="pencil-outline"></ion-icon>
-            </h2>
-          </ion-label>
-        </ion-note>
-      </ion-item> -->
+        </ion-item>
+      </div>
+
+      <div *ngIf="data?.menu as cate">
+        <ion-item lines="none">
+          <ion-segment scrollable="true" (ionChange)="segmentChanged(category)" [(ngModel)]="category" lines="none"
+            mode="md">
+            <div *ngFor="let c of cate">
+              <ion-segment-button *ngIf="c.products.length > 0" [value]="c.categoryId">
+                <ion-label color="dark">
+                  <h2><b>{{c.categoryName}} </b></h2>
+                </ion-label>
+              </ion-segment-button>
+            </div>
+          </ion-segment>
+        </ion-item>
+
+        <div *ngFor="let c of cate">
+          <div *ngIf="c.categoryId == segmentValue">
+            <ion-item *ngFor="let p of c?.products">
+              <ion-thumbnail slot="start" class="ion-margin-vertical">
+                <img
+                  [src]=" p.previewImageUrl ? p.previewImageUrl :'https://travel.mthai.com/app/uploads/2014/07/%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B4%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B8%A2%E0%B9%86-14.jpg'">
+              </ion-thumbnail>
+              <ion-text>
+                <ion-label>
+                  <h2><b>{{p.name}}</b></h2>
+                  <ion-note>
+                    <p>สินค้าหมด</p>
+                  </ion-note>
+                </ion-label>
+              </ion-text>
+              <ion-note color="dark" slot="end">
+                <ion-label>
+                  <h2><b>฿ {{p.price | number}}</b></h2>
+                </ion-label>
+              </ion-note>
+            </ion-item>
+          </div>
+        </div>
+      </div>
     </ion-list>
   </ng-container>
+
+  <ng-container *ngIf="hasLoaded == 'n'">
+    <ion-list lines="none">
+      <ion-item color="tertiary" class="ion-text-center">
+        <ion-label>ไม่มีรายการ</ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="!hasLoaded">
+    <ion-item lines="none">
+      <ion-skeleton-text animated style="height: 70px; width: 100%;"></ion-skeleton-text>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <hr style="background-color: black;">
+    <ion-item lines="none">
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <h3>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+      </ion-label>
+    </ion-item>
+  </ng-container>
+
 </ion-content>
