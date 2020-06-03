@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class DeliveryReceiveConfirmPage implements OnInit {
 
   public fg: FormGroup;
+  public rating: number;
   constructor(private fb: FormBuilder) {
     this.fg = this.fb.group({
       'rating': null,
@@ -20,8 +21,9 @@ export class DeliveryReceiveConfirmPage implements OnInit {
   ngOnInit() {
   }
   
-  rating(rating: number) {
-    this.fg.get('rating').setValue(rating);    
+  showRating(rate: number) {
+    this.rating = rate;
+    this.fg.get('rating').setValue(this.rating);    
   }
 
   handleSubmit(){

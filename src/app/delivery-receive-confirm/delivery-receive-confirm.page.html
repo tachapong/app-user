@@ -1,8 +1,8 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>คุณได้รับของแล้ว</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content mode="ios">
   <form [formGroup]="fg">
@@ -20,11 +20,20 @@
 
       <ion-item color="tertiary" lines="none">
         <div class="rating center">
-          <label (click)='rating(5)'>5 stars</label>
-          <label (click)='rating(4)'>4 stars</label>
-          <label (click)='rating(3)'>3 stars</label>
-          <label (click)='rating(2)'>2 stars</label>
-          <label (click)='rating(1)'>1 star</label>
+          <input type="radio" [checked]="rating===5" />
+          <label (click)='showRating(5)'>5 stars</label>
+
+          <input type="radio" [checked]="rating===4" />
+          <label (click)='showRating(4)'>4 stars</label>
+
+          <input type="radio" [checked]="rating===3" />
+          <label (click)='showRating(3)'>3 stars</label>
+
+          <input type="radio" [checked]="rating===2" />
+          <label (click)='showRating(2)'>2 stars</label>
+
+          <input type="radio" [checked]="rating===1" />
+          <label (click)='showRating(1)'>1 star</label>
         </div>
       </ion-item>
 
@@ -35,7 +44,8 @@
       </ion-item>
 
       <ion-item color="tertiary" lines="none" class="ion-no-padding">
-        <ion-textarea class="ion-no-padding" placeholder="เขียนคำแนะนำการให้บริการ" rows="4" formControlName="note"></ion-textarea>
+        <ion-textarea class="ion-no-padding" placeholder="เขียนคำแนะนำการให้บริการ" rows="4" formControlName="note">
+        </ion-textarea>
       </ion-item>
     </ion-card-header>
 
