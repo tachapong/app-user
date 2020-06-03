@@ -24,4 +24,9 @@ export class DeliveryReceiveConfirmPage implements OnInit {
     this.fg.get('rating').setValue(rating);    
   }
 
+  handleSubmit(){
+    console.log(this.fg.get('rating').value);
+    console.log(this.fg.get('note').value);
+  }
+
 }
