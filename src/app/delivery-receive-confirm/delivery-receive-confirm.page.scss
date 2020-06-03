@@ -36,14 +36,14 @@ Adds the star symbol to the labels
 Colour for the applied rating stars
 ***************************/
 .rating > input:checked ~ label {
-    color: #f70;
+    color: #ffc40d;
 }
 /***************************
 Colour for hovered stars when increasing the rating
 ***************************/
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label {
-    color: gold;
+    color: #ffc40d;
 }
 /***************************
 Colour for hovered stars when decreasing the rating
@@ -51,5 +51,5 @@ Colour for hovered stars when decreasing the rating
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label {
-    color: #ea0;
+    color: #ffc40d;
 }
