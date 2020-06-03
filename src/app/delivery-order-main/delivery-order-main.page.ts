@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-delivery-order-main',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeliveryOrderMainPage implements OnInit {
 
-  constructor() { }
+  public order$ = Promise.resolve([]);
+  constructor(private userSvc: UserService) { }
+
+  ionViewDidEnter() {
+    this.getOwnOrder()
+  }
 
   ngOnInit() {
   }
 
+  getOwnOrder() {
+    this.order$ = this.userSvc.getOwnOrder("string");
+    this.order$.then(it=>{
+      console.log(it);
+    })
+  }
 }
