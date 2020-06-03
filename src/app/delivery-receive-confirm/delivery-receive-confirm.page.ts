@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-delivery-receive-confirm',
@@ -7,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeliveryReceiveConfirmPage implements OnInit {
 
-  constructor() { }
-
+  public fg: FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.fg = this.fb.group({
+      'rating': null,
+      'note': null,
+    })
+    
+  }
+  
   ngOnInit() {
   }
-
+  
+  rating(rating: number) {
+    this.fg.get('rating').setValue(rating);    
+  }
 
 }
