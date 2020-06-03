@@ -4,38 +4,51 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card-header color="tertiary">
-    <ion-avatar>
-      <img
-        src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fsites.google.com%2Fsite%2Fsisyasanguan%2F_%2Frsrc%2F1479445848905%2Fprawati%2Fchis-sweet-home-screenshot-01.jpg&imgrefurl=https%3A%2F%2Fsites.google.com%2Fsite%2Fsisyasanguan%2Fprawati&tbnid=HXNrTazAoU96sM&vet=12ahUKEwjQlNS56OLpAhWZBLcAHQgrCvEQMygBegUIARCmAg..i&docid=Pbs4iEk50NSd3M&w=480&h=347&q=chi%20sweet%20home&hl=en&ved=2ahUKEwjQlNS56OLpAhWZBLcAHQgrCvEQMygBegUIARCmAg">
-    </ion-avatar>
+<ion-content mode="ios">
+  <form [formGroup]="fg">
+    <ion-card-header color="tertiary">
+      <ion-avatar class="center ion-margin-top">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkdV2Pr8PLYit-rTrXH9Fk6my1UtfpfWNLCvzvLtohVrxgDmIw6g&s">
+      </ion-avatar>
 
-    <ion-item color="tertiary" lines="none" class="ion-text-center">
+      <ion-item color="tertiary" lines="none" class="ion-text-center ion-margin-top">
+        <ion-label>
+          <h2><b>ให้คะแนนการบริการ</b></h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item color="tertiary" lines="none">
+        <div class="rating center">
+          <label (click)='rating(5)'>5 stars</label>
+          <label (click)='rating(4)'>4 stars</label>
+          <label (click)='rating(3)'>3 stars</label>
+          <label (click)='rating(2)'>2 stars</label>
+          <label (click)='rating(1)'>1 star</label>
+        </div>
+      </ion-item>
+
+      <ion-item color="tertiary" lines="none" class="ion-no-padding">
+        <ion-label>
+          <h2><b>คำแนะนำ</b></h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item color="tertiary" lines="none" class="ion-no-padding">
+        <ion-textarea class="ion-no-padding" placeholder="เขียนคำแนะนำการให้บริการ" rows="4" formControlName="note"></ion-textarea>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-item color="light" lines="none" class="ion-text-center ion-padding">
       <ion-label>
-        <h2><b>ให้คะแนนการบริการ</b></h2>
+        <h4>
+          <img width="15px" height="15px"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkdV2Pr8PLYit-rTrXH9Fk6my1UtfpfWNLCvzvLtohVrxgDmIw6g&s">
+          แจ้งรายงานปัญหา
+        </h4>
       </ion-label>
     </ion-item>
-
-    <ion-item color="tertiary" lines="none" class="ion-no-padding">
-      <ion-label>
-        <h2><b>คำแนะนำ</b></h2>
-      </ion-label>
-    </ion-item>
-
-    <ion-item color="tertiary" lines="none" class="ion-no-padding">
-      <ion-textarea placeholder="เขียนคำแนะนำการให้บริการ" rows="4"></ion-textarea>
-    </ion-item>
-  </ion-card-header>
-  
-  <ion-item color="light" lines="none"></ion-item>
-  
-  <ion-item color="light" lines="none" class="ion-text-center">
-    <ion-label>
-      <h4>แจ้งรายงานปัญหา</h4>
-    </ion-label>
-  </ion-item>
-
+  </form>
 </ion-content>
 
 <ion-footer>
