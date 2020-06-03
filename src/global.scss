@@ -128,62 +128,6 @@ ion-fab {
     text-decoration: line-through;
 }
 
-.transaction {
-    .right-line {
-      border-right: 0.55px solid #c8c7cc !important;
-    }
-
-    .right-arrow {
-      position: absolute;
-      top: 50%;
-      left: 100%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5rem;
-      color: var(--ion-color-medium);
-      background-color: var(--ion-color-tertiary);
-    }
-
-    .indentation {
-      background-image: url(./assets/imgs/indentationbg.png);
-      background-repeat: repeat-x;
-      height: 10px;
-      margin-top: -1px;
-      background-size: 16px;
-    }
-
-    .text-no-wrap {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .text-vertical-center {
-      margin: auto 0px !important;
-    }
-
-    .content-center {
-      display: flex;
-      justify-content: center;
-    }
-
-    .padding-vertical-long {
-      padding: 50px 0 !important;
-    }
-
-    ion-label {
-      margin: unset !important;
-    }
-
-    .list-ios {
-      margin: unset !important;
-    }
-
-    .transaction-img {
-      width: 35px;
-      height: 35px;
-    }
-}
-
 ion-avatar.avatar-small{
     width: 30px;
     height: 30px;;
