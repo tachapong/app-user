@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-shop-select',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopSelectPage implements OnInit {
 
-  constructor() { }
+  openedRestaurantList$ = Promise.resolve([]);
+  
+  constructor(private userSvc: UserService) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.openedRestaurantList$ = this.userSvc.getCurrentlyOpenedRestaurants();
+    this.openedRestaurantList$.then((it)=>{console.log(it);});
   }
 
 }
