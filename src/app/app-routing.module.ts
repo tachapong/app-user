@@ -2,19 +2,16 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: '', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
     path: 'shop-select',
     loadChildren: () => import('./shop-select/shop-select.module').then( m => m.ShopSelectPageModule)
-  },  {
+  },
+  {
     path: 'shop-menu-select',
     loadChildren: () => import('./shop-menu-select/shop-menu-select.module').then( m => m.ShopMenuSelectPageModule)
   },
