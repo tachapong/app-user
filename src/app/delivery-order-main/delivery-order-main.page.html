@@ -1,8 +1,8 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
-    <ion-title>delivery-order-main</ion-title>
+    <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content mode="ios">
   <ng-container *ngIf="true">
@@ -58,19 +58,24 @@
       <ion-note slot="start">
         <ion-text color="dark">
           <ion-label>
-            <ion-icon name="call-outline"></ion-icon>
-            <b>
-              ติดต่อ
-            </b>
+            <h3>
+              <ion-icon name="call-outline"></ion-icon>
+              <b>
+                ติดต่อ
+              </b>
+            </h3>
           </ion-label>
+
         </ion-text>
       </ion-note>
       <ion-note slot="end">
-        <ion-text color="dark">
-          <b>
-            ยกเลิก
-          </b>
-        </ion-text>
+        <ion-label color="dark">
+          <h3> 
+            <b>
+              ยกเลิก
+            </b>
+          </h3>
+        </ion-label>
       </ion-note>
     </ion-item>
 
@@ -81,7 +86,7 @@
       <ion-note slot="end">
         <ion-text color="success">
           <ion-label>
-            <ion-icon color="danger" name="location-outline"></ion-icon>
+            <img height="22" src="assets/imgs/bill.png">
           </ion-label>
         </ion-text>
       </ion-note>
@@ -91,9 +96,9 @@
       <ion-avatar slot="start" class="avatar-small">
         <img src="assets/icon/favicon.png">
       </ion-avatar>
-      <label>
-        <h5><b> restaurant A </b></h5>
-      </label>
+      <ion-label>
+        <h2><b> restaurant A </b></h2>
+      </ion-label>
     </ion-item>
     <ion-list lines="full">
       <ion-item color="tertiary">
@@ -131,7 +136,7 @@
     </ion-list>
 
   </ng-container>
-  <!-- <ng-container *ngIf="order$ | async as data">
+  <!-- <ng-container *ngIf="data$ | async as data">
     <ion-item color="tertiary" lines="none">
       <ion-avatar class="avatar-small" slot="start">
         <img src="assets/icon/favicon.png" />

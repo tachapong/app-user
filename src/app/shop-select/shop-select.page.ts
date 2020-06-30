@@ -9,18 +9,17 @@ import { IonManaLib } from 'ion-m-lib';
 })
 export class ShopSelectPage implements OnInit {
 
-  // openedRestaurantList$ = Promise.resolve([]);
+  public title: string = "Delivery";
   public hasLoaded: string;
   public data$ = Promise.resolve<{}>({});
-  mcontentid = "637287538894910727"
+  mcontentid = "637290984294796854"
   constructor(private userSvc: UserService, private svc: IonManaLib) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    // this.openedRestaurantList$ = this.userSvc.getCurrentlyOpenedRestaurants();
-    // this.openedRestaurantList$.then((it)=>{console.log(it);});
+    this.data$ = this.userSvc.getCurrentlyOpenedRestaurants();
     this.hasLoaded = null;
     let load$ = this.loadData$();
     // this.data$ = load$;

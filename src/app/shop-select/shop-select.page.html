@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>shopSelect</ion-title>
+    <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="tertiary" class="ion-padding-top" mode="ios">
-  <!-- <ng-container *ngIf="openedRestaurantList$ | async as data">
+  <ng-container *ngIf="data$ | async as data">
     <ion-list color="tertiary">
       <ion-list-header color="tertiary" mode="md">
         <ion-label color="danger">
@@ -37,5 +37,5 @@
           </div>
         </ion-item>
     </ion-list>
-  </ng-container> -->
+  </ng-container>
 </ion-content>
