@@ -37,7 +37,7 @@ export class ShopSelectPage implements OnInit {
   }
 
   onSelect(shopId : string){
-    this.svc.visitEndpoint(this.mcontentid,"nbizhme-637291684014028939");
+    this.svc.visitEndpoint(this.mcontentid,"https://s.manal.ink/np/nbizhme-637291684014028939");
   }
 
 }

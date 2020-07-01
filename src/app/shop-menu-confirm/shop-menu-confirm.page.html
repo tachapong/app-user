@@ -6,14 +6,17 @@
 
 <ion-content mode="ios">
   <div class="ion-margin-top" color="tertiary">
-    <ion-item color="tertiary">
-      <ion-thumbnail slot="start" class="ion-margin-top">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG">
-      </ion-thumbnail>
-      <ion-label><b>เอสเปรสโซเย็น</b></ion-label>
-      <ion-label class="ion-text-end"><b>฿50</b></ion-label>
-    </ion-item>
-    <ion-list color="tertiary">
+    <form [formGroup]="fg" (ngSubmit)="onSubmit()" [rx-form-data]="formData$ | async">
+      <ion-item color="tertiary">
+        <ion-thumbnail slot="start" class="ion-margin-top">
+          <img [src]="(formData$ | async)?.product?.previewImageUrl">
+        </ion-thumbnail>
+        <ion-label><b>{{ (formData$ | async)?.product?.name }}</b></ion-label>
+        <ion-note color="dark" class="ion-text-end">
+          <b>{{ (formData$ | async)?.product?.unitPrice?.currency }}{{ (formData$ | async)?.product?.unitPrice?.amountUnit }}</b>
+        </ion-note>
+      </ion-item>
+      <ion-list color="tertiary" *ngIf="(formData$ | async)?.options != null">
         <ion-item lines="none" color="tertiary">
           <ion-thumbnail slot="start">
           </ion-thumbnail>
@@ -21,44 +24,28 @@
             <b class="ion-no-padding">รายละเอียดเพิ่มเติม</b>
           </ion-label>
         </ion-item>
-      <ion-item color="tertiary">
-        <ion-thumbnail slot="start">
-        </ion-thumbnail>
-        <ion-label>
-          <h3>หวานน้อย</h3>
+        <ion-item color="tertiary" *ngFor="let option of (formData$ | async)?.options">
+          <ion-thumbnail slot="start">
+          </ion-thumbnail>
+          <ion-checkbox slot="start" color="primary"></ion-checkbox>
+          <ion-label>
+            <h3>{{ option.name }}</h3>
+          </ion-label>
+          <ion-note color="dark" class="ion-text-end">{{ option.unitPrice?.currency }}{{ option.unitPrice?.amountUnit }}
+          </ion-note>
+        </ion-item>
+      </ion-list>
+      <ion-item color="tertiary" lines="none" class="ion-margin-top">
+        <ion-label class="ion-margin-start">
+          <h2><b>หมายเหตุ</b></h2>
         </ion-label>
-        <ion-checkbox slot="start" color="primary"></ion-checkbox>
       </ion-item>
-      <ion-item color="tertiary">
-        <ion-thumbnail slot="start">
-        </ion-thumbnail>
-        <ion-label>
-          <h3>หวานปกติ</h3>
-        </ion-label>
-        <ion-checkbox slot="start" color="primary"></ion-checkbox>
+      <ion-item color="tertiary" lines="none">
+        <ion-textarea></ion-textarea>
       </ion-item>
-      <ion-item color="tertiary">
-        <ion-thumbnail slot="start">
-        </ion-thumbnail>
-        <ion-label>
-          <h3>หวานมาก</h3>
-        </ion-label>
-        <ion-checkbox slot="start" color="primary"></ion-checkbox>
-      </ion-item>
-    </ion-list>
+      <ion-button id="app-form-submit" color="danger" class="ion-no-margin" expand="full" type="submit"
+        [disabled]="fg.invalid">ยืนยัน
+      </ion-button>
+    </form>
   </div>
-  <div class="ion-margin-vertical" color="tertiary">
-    <ion-item color="tertiary" lines="none">
-      <ion-label class="ion-margin-start">
-        <h2><b>หมายเหตุ</b></h2>
-      </ion-label>
-    </ion-item>
-    <ion-item color="tertiary" lines="none">
-      <ion-textarea></ion-textarea>
-    </ion-item>
-
-
-  </div>
-
-
 </ion-content>
