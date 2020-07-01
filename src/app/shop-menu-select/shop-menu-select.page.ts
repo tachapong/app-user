@@ -23,31 +23,36 @@ export class ShopMenuSelectPage implements OnInit {
 
   ionViewDidEnter() {
     this.hasLoaded = 'null';
-    this.data$ = this.userSvc.getRestaurantMenu('1');
+    // this.data$ = this.userSvc.getRestaurantMenu('1');
+    // this.data$.then((it: any) => {
+    //   let qry = it && it.menu.filter(i => i.products.length > 0);
+    //   this.category = qry[0].categoryId;
+    //   this.segmentChanged(qry[0].categoryId);
+    //   this.hasLoaded = (it != null) ? "y" : "n";
+    // })
     let load$ = this.loadData$();
-    this.data$.then((it: any) => {
+    this.data$ = load$;
+    load$.then(it => {
       let qry = it && it.menu.filter(i => i.products.length > 0);
       this.category = qry[0].categoryId;
       this.segmentChanged(qry[0].categoryId);
-      this.hasLoaded = (it != null) ? "y" : "n";
-    })
-    // this.data$ = load$;
-    load$.then(it => {
-      console.log(it);
       this.svc.initPageApi(this.mcontentid);
-      // this.hasLoaded = it ? "y" : "n";
+      this.hasLoaded = it ? "y" : "n";
     });
   }
 
   private loadData$() {
     return this.svc.initPageApi(this.mcontentid)
       .then(_ => {
-        // return this.svc.getApiData(this.mcontentid);
+        return this.svc.getApiData(this.mcontentid);
       })
   }
 
-
   segmentChanged(id: any) {
     this.segmentValue = id;
+  }
+
+  onSelect(productId: string) {
+    this.svc.visitEndpoint(this.mcontentid, "npdtdtl-" + productId);
   }
 }

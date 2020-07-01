@@ -19,22 +19,25 @@ export class ShopSelectPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.data$ = this.userSvc.getCurrentlyOpenedRestaurants();
     this.hasLoaded = null;
     let load$ = this.loadData$();
-    // this.data$ = load$;
+    this.data$ = load$;
     load$.then(it => {
       console.log(it);      
       this.svc.initPageApi(this.mcontentid);
-      // this.hasLoaded = it ? "y" : "n";
+      this.hasLoaded = it ? "y" : "n";
     });
   }
   
   private loadData$() {
     return this.svc.initPageApi(this.mcontentid)
       .then(_ => {
-        // return this.svc.getApiData(this.mcontentid);
+        return this.svc.getApiData(this.mcontentid);
       })
+  }
+
+  onSelect(shopId : string){
+    this.svc.visitEndpoint(this.mcontentid,"nbizhme-637291684014028939");
   }
 
 }
