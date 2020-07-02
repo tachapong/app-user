@@ -33,9 +33,8 @@ export class DeliveryCancelConfirmPage implements OnInit {
   }
 
   OnSubmit() {
-    console.log("ok");
-
+    if (this.fg.valid) {
+      this.svc.submitFormData(this.mcontentid, this.fg.value);
+    }
   }
-
-
 }

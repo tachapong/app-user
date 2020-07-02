@@ -22,6 +22,9 @@ export class DeliveryReceiveConfirmPage implements OnInit {
       'note': null,
     })
 
+    this.fg.valueChanges.subscribe(_ => {
+      this.svc.validForm(this.fg.valid)
+    });
   }
 
   ionViewDidEnter() {
@@ -29,13 +32,13 @@ export class DeliveryReceiveConfirmPage implements OnInit {
     let load$ = this.loadData$();
     // this.data$ = load$;
     load$.then(it => {
-      console.log(it);      
+      console.log(it);
       this.svc.initPageApi(this.mcontentid);
       // this.hasLoaded = it ? "y" : "n";
     });
-    this.svc.validForm(true);
+    this.svc.validForm(this.fg.valid);
   }
-  
+
   private loadData$() {
     return this.svc.initPageApi(this.mcontentid)
       .then(_ => {
@@ -51,9 +54,12 @@ export class DeliveryReceiveConfirmPage implements OnInit {
     this.fg.get('rating').setValue(this.rating);
   }
 
-  handleSubmit() {
+  OnSubmit() {
     console.log(this.fg.get('rating').value);
     console.log(this.fg.get('note').value);
+    if (this.fg.valid) {
+      this.svc.submitFormData(this.mcontentid, this.fg.value);
+    }
   }
 
 }

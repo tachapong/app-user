@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content mode="ios">
-  <form [formGroup]="fg">
+  <form [formGroup]="fg" (ngSubmit)="OnSubmit()">
     <ion-card-header color="tertiary">
       <ion-avatar class="center ion-margin-top">
         <img
@@ -61,6 +61,6 @@
 </ion-content>
 
 <ion-footer>
-  <ion-button id="app-form-submit" (click)="handleSubmit()" color="danger" ion-button expand="full" no-margin>ตกลง
+  <ion-button class="ion-no-margin" id="app-form-submit" [disabled]="fg.invalid" (click)="OnSubmit()" color="danger" expand="full">ตกลง
   </ion-button>
 </ion-footer>
