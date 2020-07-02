@@ -15,7 +15,6 @@ import { DirectivesModule } from 'src/directives/directives.module';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    DirectivesModule,
     ShopMenuConfirmPageRoutingModule
   ],
   declarations: [ShopMenuConfirmPage]

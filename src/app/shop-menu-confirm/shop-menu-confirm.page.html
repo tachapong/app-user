@@ -5,18 +5,18 @@
 </ion-header>
 
 <ion-content mode="ios">
-  <div class="ion-margin-top" color="tertiary">
-    <form [formGroup]="fg" (ngSubmit)="onSubmit()" [rx-form-data]="formData$ | async">
+  <ng-container *ngIf="data$ | async as data">
+    <div class="ion-margin-top" color="tertiary">
       <ion-item color="tertiary">
         <ion-thumbnail slot="start" class="ion-margin-top">
-          <img [src]="(formData$ | async)?.product?.previewImageUrl">
+          <img [src]="data.product?.previewImageUrl">
         </ion-thumbnail>
-        <ion-label><b>{{ (formData$ | async)?.product?.name }}</b></ion-label>
+        <ion-label><b>{{ data.product?.name }}</b></ion-label>
         <ion-note color="dark" class="ion-text-end">
-          <b>{{ (formData$ | async)?.product?.unitPrice?.currency }}{{ (formData$ | async)?.product?.unitPrice?.amountUnit }}</b>
+          <b>฿&nbsp;{{ data.product?.unitPrice?.amountUnit }}</b>
         </ion-note>
       </ion-item>
-      <ion-list color="tertiary" *ngIf="(formData$ | async)?.options != null">
+      <ion-list color="tertiary" *ngIf="data.options != null">
         <ion-item lines="none" color="tertiary">
           <ion-thumbnail slot="start">
           </ion-thumbnail>
@@ -24,14 +24,14 @@
             <b class="ion-no-padding">รายละเอียดเพิ่มเติม</b>
           </ion-label>
         </ion-item>
-        <ion-item color="tertiary" *ngFor="let option of (formData$ | async)?.options">
+        <ion-item color="tertiary" *ngFor="let option of data.options">
           <ion-thumbnail slot="start">
           </ion-thumbnail>
-          <ion-checkbox slot="start" color="primary"></ion-checkbox>
+          <ion-checkbox slot="start" color="primary" (click)="checkCheckbox($event,option)"></ion-checkbox>
           <ion-label>
-            <h3>{{ option.name }}</h3>
+            <h3>{{ option.value }}</h3>
           </ion-label>
-          <ion-note color="dark" class="ion-text-end">{{ option.unitPrice?.currency }}{{ option.unitPrice?.amountUnit }}
+          <ion-note color="dark" class="ion-text-end">฿&nbsp;{{ option.unitPrice?.amountUnit }}
           </ion-note>
         </ion-item>
       </ion-list>
@@ -41,11 +41,11 @@
         </ion-label>
       </ion-item>
       <ion-item color="tertiary" lines="none">
-        <ion-textarea></ion-textarea>
+        <ion-textarea [(ngModel)]="remark"></ion-textarea>
       </ion-item>
       <ion-button id="app-form-submit" color="danger" class="ion-no-margin" expand="full" type="submit"
         [disabled]="fg.invalid">ยืนยัน
       </ion-button>
-    </form>
-  </div>
+    </div>
+  </ng-container>
 </ion-content>

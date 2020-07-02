@@ -14,13 +14,15 @@ export class ShopMenuConfirmPage implements OnInit {
   public hasLoaded: string;
   private mcontentid = "637290987131938444";
   public fg: FormGroup;
-  public formData$: Promise<{}> = new Promise<{}>(_ => { });
+  public listOptions = [];
+  public remark: string = null;
+  public data$ = Promise.resolve([]);
   constructor(private userSvc: UserService, private svc: IonManaLib, private fb: FormBuilder) {
     (<any>window).submitProductForm = () => this.onSubmit();
     this.fg = this.fb.group({
-      'options': null,
+      'selectedOptions': null,
     });
-    
+
     this.fg.valueChanges.subscribe(_ => {
       this.svc.validForm(this.fg.valid)
     });
@@ -29,8 +31,8 @@ export class ShopMenuConfirmPage implements OnInit {
   ionViewDidEnter() {
     this.hasLoaded = null;
     let load$ = this.loadData$();
-    this.formData$ = load$;
-    load$.then(it => {
+    this.data$ = load$;
+    load$.then(it => {      
       this.title = it.product?.name;
       this.svc.initPageApi(this.mcontentid);
       this.svc.validForm(this.fg.valid);
@@ -45,10 +47,32 @@ export class ShopMenuConfirmPage implements OnInit {
       })
   }
 
+  checkCheckbox(event: any, item: any) {
+    if (!event.target.checked) {
+      this.listOptions.push({
+        'name': item.name,
+        'value': item.value,
+      });
+    }
+    else {
+      let index = this.listOptions.findIndex(it => it.name == item.name);
+      if (index >= 0) this.listOptions.splice(index, 1);
+    }
+  }
+
   ngOnInit() {
   }
 
   onSubmit() {
+    let index = this.listOptions.findIndex(it => it.name == "mockremarkid");
+    if (index >= 0) this.listOptions.splice(index, 1);
+    if (this.remark) {
+      this.listOptions.push({
+        'name': "mockremarkid",
+        'value': this.remark,
+      })
+    }
+    this.fg.get('selectedOptions').patchValue(this.listOptions);
     if (this.fg.valid) {
       this.svc.submitFormData(this.mcontentid, this.fg.value);
     }
