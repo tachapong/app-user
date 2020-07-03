@@ -14,14 +14,14 @@ export class DeliveryOrderMainPage implements OnInit {
   public hasLoaded: string;
   private mcontentid = "637290987388843134";
   public data$ = Promise.resolve([]);
-  public statusRecieved: boolean = false;
+  public statusReceived: boolean = false;
   public statusShipping: boolean = false;
   public statusDone: boolean = false;
   constructor(private userSvc: UserService, private svc: IonManaLib, private router: Router) { }
 
   ionViewDidEnter() {
     this.svc.setStateChangedHandler((param) => this.OnStateChanged(param));
-    this.getOwnOrder()
+    // this.getOwnOrder()
     this.refreshCallBack();
   }
 
@@ -36,7 +36,11 @@ export class DeliveryOrderMainPage implements OnInit {
     this.hasLoaded = null;
     let load$ = this.loadData$();
     // this.data$ = load$;
-    load$.then(it => {
+    load$.then((it: any) => {
+      this.statusReceived = it.acceptRequestDate != null; 
+      this.statusShipping = it.shippingDate != null;
+      this.statusDone = it.destinationDate != null;
+
       console.log(it);
       this.svc.initPageApi(this.mcontentid);
       // this.hasLoaded = it ? "y" : "n";
@@ -75,7 +79,11 @@ export class DeliveryOrderMainPage implements OnInit {
 
   getOwnOrder() {
     this.data$ = this.userSvc.getOwnOrder("string");
-    this.data$.then(it => {
+    this.data$.then((it: any) => {
+      this.statusReceived = it.acceptRequestDate != null; 
+      this.statusShipping = it.shippingDate != null;
+      this.statusDone = it.destinationDate != null;
+
       console.log(it);
     })
   }
