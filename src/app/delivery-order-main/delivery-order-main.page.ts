@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { IonManaLib } from 'ion-m-lib';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery-order-main',
@@ -13,7 +14,7 @@ export class DeliveryOrderMainPage implements OnInit {
   public hasLoaded: string;
   private mcontentid = "637290987388843134";
   public data$ = Promise.resolve([]);  
-  constructor(private userSvc: UserService, private svc: IonManaLib) { }
+  constructor(private userSvc: UserService, private svc: IonManaLib, private router: Router) { }
 
   ionViewDidEnter() {
     this.svc.setStateChangedHandler((param) => this.OnStateChanged(param));
@@ -47,6 +48,16 @@ export class DeliveryOrderMainPage implements OnInit {
       case "c": ;
       default: ;
     }
+  }
+
+  onCancel(endpoint: string){
+    // TODO : implement endpoint
+    console.log(endpoint);    
+    this.svc.visitEndpoint(this.mcontentid, "https://s.manal.ink/api/escrow/cancel/nafmdtl-" + endpoint);
+  }
+
+  onDetail(){
+    this.router.navigateByUrl("/delivery-order-detail");
   }
 
   getOwnOrder() {

@@ -68,7 +68,8 @@
 
         </ion-text>
       </ion-note>
-      <ion-note slot="end">
+      <!-- TODO : implemnt Endpoint -->
+      <ion-note slot="end" (click)="onCancel('66523')">
         <ion-label color="dark">
           <h3> 
             <b>
@@ -83,7 +84,7 @@
       <ion-label>
         <h2><b>รายการที่สั่ง</b></h2>
       </ion-label>
-      <ion-note slot="end">
+      <ion-note slot="end" (click)="onDetail()">
         <ion-text color="success">
           <ion-label>
             <img height="22" src="assets/imgs/bill.png">
