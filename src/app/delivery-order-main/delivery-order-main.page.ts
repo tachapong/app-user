@@ -13,56 +13,69 @@ export class DeliveryOrderMainPage implements OnInit {
   public title: string = "Delivery company";
   public hasLoaded: string;
   private mcontentid = "637290987388843134";
-  public data$ = Promise.resolve([]);  
+  public data$ = Promise.resolve([]);
+  public statusRecieved: boolean = false;
+  public statusShipping: boolean = false;
+  public statusDone: boolean = false;
   constructor(private userSvc: UserService, private svc: IonManaLib, private router: Router) { }
 
   ionViewDidEnter() {
     this.svc.setStateChangedHandler((param) => this.OnStateChanged(param));
-
     this.getOwnOrder()
+    this.refreshCallBack();
+  }
 
+  private loadData$() {
+    return this.svc.initPageApiWithCallBack(this.mcontentid, () => this.refreshCallBack())
+      .then(_ => {
+        // return this.svc.getApiData(this.mcontentid);
+      })
+  }
+
+  private refreshCallBack() {
     this.hasLoaded = null;
     let load$ = this.loadData$();
     // this.data$ = load$;
     load$.then(it => {
-      console.log(it);      
+      console.log(it);
       this.svc.initPageApi(this.mcontentid);
       // this.hasLoaded = it ? "y" : "n";
     });
   }
-  
-  private loadData$() {
-    return this.svc.initPageApi(this.mcontentid)
-      .then(_ => {
-        // return this.svc.getApiData(this.mcontentid);
-      })
-  }  
 
   ngOnInit() {
   }
 
   OnStateChanged(state) {
-    switch (state) {
-      case "a": ;
-      case "b": ;
-      case "c": ;
-      default: ;
-    }
+    this.refreshCallBack();
+    
+    // switch (state) {
+    //   case "recieved":
+    //     this.statusRecieved = true;break;
+    //   case "shipping":
+    //     this.statusRecieved = true;
+    //     this.statusShipping = true;break;
+    //   case "done":
+    //     this.statusRecieved = true;
+    //     this.statusShipping = true;
+    //     this.statusDone = true;break;
+    //   default: break;
+    // }
   }
 
-  onCancel(endpoint: string){
+  onCancel(endpoint: string) {
     // TODO : implement endpoint
-    console.log(endpoint);    
+    console.log(endpoint);
     this.svc.visitEndpoint(this.mcontentid, "https://s.manal.ink/api/escrow/cancel/nafmdtl-" + endpoint);
   }
 
-  onDetail(){
+  onDetail() {
     this.router.navigateByUrl("/delivery-order-detail");
   }
 
   getOwnOrder() {
     this.data$ = this.userSvc.getOwnOrder("string");
-    this.data$.then(it=>{
+    this.data$.then(it => {
       console.log(it);
     })
   }

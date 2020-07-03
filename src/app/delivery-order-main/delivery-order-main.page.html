@@ -25,31 +25,16 @@
     <ion-item color="tertiary" lines="none">
       <ion-row class="boxStepProgressBar">
         <div>
-          <li>
-            <div class="nodeSuccess"></div>
-            <p>รอ (10/2/56 )</p>
-          </li>
-          <li>
-            <div class="lineUnSuccess"></div>
-          </li>
-          <li>
-            <div class="nodeUnSuccess"></div>
-            <p>รับออเดอร์ (10/2/56 )</p>
-          </li>
-          <li>
-            <div class="lineUnSuccess"></div>
-          </li>
-          <li>
-            <div class="nodeUnSuccess"></div>
-            <p>จัดส่ง (10/2/56 )</p>
-          </li>
-          <li>
-            <div class="lineUnSuccess"></div>
-          </li>
-          <li>
-            <div *ngIf="'false'" class="nodeUnSuccess"></div>
-            <p>ของถึงแล้ว (10/2/56 )</p>
-          </li>
+          <li><div class="nodeSuccess"></div><p>รอ (10/2/56 )</p></li>
+
+          <li><div [class]="statusRecieved ? 'lineSuccess' : 'lineUnSuccess'"></div></li>
+          <li><div [class]="statusRecieved ? 'nodeSuccess' : 'nodeUnSuccess'"></div><p>รับออเดอร์ (10/2/56 )</p></li>
+         
+          <li><div [class]="statusShipping ? 'lineSuccess' : 'lineUnSuccess'"></div></li>
+          <li><div [class]="statusShipping ? 'nodeSuccess' : 'nodeUnSuccess'"></div><p>จัดส่ง (10/2/56 )</p></li>
+         
+          <li><div [class]="statusDone ? 'lineSuccess' : 'lineUnSuccess'"></div></li>
+          <li><div [class]="statusDone ? 'nodeSuccess' : 'nodeUnSuccess'"></div><p>ของถึงแล้ว (10/2/56 )</p></li>
         </div>
       </ion-row>
     </ion-item>
@@ -71,7 +56,7 @@
       <!-- TODO : implemnt Endpoint -->
       <ion-note slot="end" (click)="onCancel('66523')">
         <ion-label color="dark">
-          <h3> 
+          <h3>
             <b>
               ยกเลิก
             </b>
