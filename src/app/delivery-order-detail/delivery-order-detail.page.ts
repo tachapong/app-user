@@ -17,34 +17,25 @@ export class DeliveryOrderDetailPage implements OnInit {
   constructor(private userSvc: UserService, private svc: IonManaLib, private parse: ParseDataProvider) { }
 
   ionViewDidEnter() {
-    this.getOwnOrder()
-
     this.hasLoaded = null;
     let load$ = this.loadData$();
-    // this.data$ = load$;
+    this.data$ = load$;
     load$.then(it => {
-      // console.log(it);      
       this.svc.initPageApi(this.mcontentid);
-      // this.hasLoaded = it ? "y" : "n";
+      this.hasLoaded = it ? "y" : "n";
     });
   }
   
   private loadData$() {
     return this.svc.initPageApi(this.mcontentid)
       .then(_ => {
-        // return this.svc.getApiData(this.mcontentid);
+        return this.svc.getApiData(this.mcontentid);
+        // this.userSvc.getOwnOrder("637293690098220976");
       })
   }
 
   ngOnInit() {
   }
-
-  getOwnOrder() {
-    this.data$ = this.userSvc.getOwnOrder("637293690098220976");
-    this.data$.then(it => {
-      console.log(it);
-    })
-  }
-
+  
   public ParseToTwoDecimal(value: number) { return this.parse.ParseToTwoDecimal(value); }
 }

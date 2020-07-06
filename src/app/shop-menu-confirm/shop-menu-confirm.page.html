@@ -13,7 +13,7 @@
         </ion-thumbnail>
         <ion-label><b>{{ data.product?.name }}</b></ion-label>
         <ion-note color="dark" class="ion-text-end">
-          <b>฿&nbsp;{{ data.product?.unitPrice?.amountUnit }}</b>
+          <b>฿&nbsp;{{ data.product?.price | number }}</b>
         </ion-note>
       </ion-item>
       <ion-list color="tertiary" *ngIf="data.options != null">
@@ -31,7 +31,7 @@
           <ion-label>
             <h3>{{ option.value }}</h3>
           </ion-label>
-          <ion-note color="dark" class="ion-text-end">฿&nbsp;{{ option.unitPrice?.amountUnit }}
+          <ion-note color="dark" class="ion-text-end">฿&nbsp;{{ option.price | number }}
           </ion-note>
         </ion-item>
       </ion-list>

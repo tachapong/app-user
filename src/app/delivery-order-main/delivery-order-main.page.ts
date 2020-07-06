@@ -22,30 +22,31 @@ export class DeliveryOrderMainPage implements OnInit {
 
   ionViewDidEnter() {
     this.svc.setStateChangedHandler((param) => this.OnStateChanged(param));
-    this.getOwnOrder()
+    // this.getOwnOrder()
     this.refreshCallBack();
   }
 
   private loadData$() {
     return this.svc.initPageApiWithCallBack(this.mcontentid, () => this.refreshCallBack())
       .then(_ => {
-        // return this.svc.getApiData(this.mcontentid);
+        return this.svc.getApiData(this.mcontentid);
+        // return this.userSvc.getOwnOrder("637293690098220976");
       })
   }
 
   private refreshCallBack() {
     this.hasLoaded = null;
     let load$ = this.loadData$();
-    // this.data$ = load$;
+    this.data$ = load$;
     load$.then((it: any) => {
-      // this.statusReceived = it.acceptRequestDate != null; 
-      // this.statusShipping = it.shippingDate != null;
-      // this.statusDone = it.destinationDate != null;
-      // this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
+      this.statusReceived = it.acceptRequestDate != null; 
+      this.statusShipping = it.shippingDate != null;
+      this.statusDone = it.destinationDate != null;
+      this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
 
-      // console.log(it);
-      // this.svc.initPageApi(this.mcontentid);
-      // this.hasLoaded = it ? "y" : "n";
+      console.log(it);
+      this.svc.initPageApi(this.mcontentid);
+      this.hasLoaded = it ? "y" : "n";
     });
   }
 
@@ -54,7 +55,7 @@ export class DeliveryOrderMainPage implements OnInit {
 
   OnStateChanged(state) {
     this.refreshCallBack();
-    
+
     // switch (state) {
     //   case "recieved":
     //     this.statusRecieved = true;break;
@@ -77,18 +78,6 @@ export class DeliveryOrderMainPage implements OnInit {
 
   onDetail() {
     this.router.navigateByUrl("/delivery-order-detail");
-  }
-
-  getOwnOrder() {
-    this.data$ = this.userSvc.getOwnOrder("637293690098220976");
-    this.data$.then((it: any) => {
-      this.statusReceived = it.acceptRequestDate != null; 
-      this.statusShipping = it.shippingDate != null;
-      this.statusDone = it.destinationDate != null;
-      this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
-
-      console.log(it);
-    })
   }
 
   private setUserLocation(address: string, latitude: string, longitude: string, phoneNumber: string, remark: string) {
