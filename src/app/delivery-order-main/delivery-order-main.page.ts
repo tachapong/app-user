@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { IonManaLib } from 'ion-m-lib';
 import { Router } from '@angular/router';
+import { ParseDataProvider } from 'src/providers/parse-data';
 
 @Component({
   selector: 'app-delivery-order-main',
@@ -17,11 +18,11 @@ export class DeliveryOrderMainPage implements OnInit {
   public statusReceived: boolean = false;
   public statusShipping: boolean = false;
   public statusDone: boolean = false;
-  constructor(private userSvc: UserService, private svc: IonManaLib, private router: Router) { }
+  constructor(private userSvc: UserService, private svc: IonManaLib, private router: Router, private parse: ParseDataProvider) { }
 
   ionViewDidEnter() {
     this.svc.setStateChangedHandler((param) => this.OnStateChanged(param));
-    // this.getOwnOrder()
+    this.getOwnOrder()
     this.refreshCallBack();
   }
 
@@ -37,12 +38,13 @@ export class DeliveryOrderMainPage implements OnInit {
     let load$ = this.loadData$();
     // this.data$ = load$;
     load$.then((it: any) => {
-      this.statusReceived = it.acceptRequestDate != null; 
-      this.statusShipping = it.shippingDate != null;
-      this.statusDone = it.destinationDate != null;
+      // this.statusReceived = it.acceptRequestDate != null; 
+      // this.statusShipping = it.shippingDate != null;
+      // this.statusDone = it.destinationDate != null;
+      // this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
 
-      console.log(it);
-      this.svc.initPageApi(this.mcontentid);
+      // console.log(it);
+      // this.svc.initPageApi(this.mcontentid);
       // this.hasLoaded = it ? "y" : "n";
     });
   }
@@ -78,13 +80,20 @@ export class DeliveryOrderMainPage implements OnInit {
   }
 
   getOwnOrder() {
-    this.data$ = this.userSvc.getOwnOrder("string");
+    this.data$ = this.userSvc.getOwnOrder("637293690098220976");
     this.data$.then((it: any) => {
       this.statusReceived = it.acceptRequestDate != null; 
       this.statusShipping = it.shippingDate != null;
       this.statusDone = it.destinationDate != null;
+      this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
 
       console.log(it);
     })
   }
+
+  private setUserLocation(address: string, latitude: string, longitude: string, phoneNumber: string, remark: string) {
+    this.svc.setGpsSection(address, latitude, longitude, phoneNumber, remark);
+  }
+
+  public ParseToTwoDecimal(value: number) { return this.parse.ParseToTwoDecimal(value); }
 }

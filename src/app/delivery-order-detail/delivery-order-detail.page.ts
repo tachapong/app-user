@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { IonManaLib } from 'ion-m-lib';
+import { ParseDataProvider } from 'src/providers/parse-data';
 
 @Component({
   selector: 'app-delivery-order-detail',
@@ -13,14 +14,16 @@ export class DeliveryOrderDetailPage implements OnInit {
   public hasLoaded: string;
   private mcontentid = "637290989254530299";
   public data$ = Promise.resolve([]);
-  constructor(private userSvc: UserService, private svc: IonManaLib) { }
+  constructor(private userSvc: UserService, private svc: IonManaLib, private parse: ParseDataProvider) { }
 
   ionViewDidEnter() {
+    this.getOwnOrder()
+
     this.hasLoaded = null;
     let load$ = this.loadData$();
     // this.data$ = load$;
     load$.then(it => {
-      console.log(it);      
+      // console.log(it);      
       this.svc.initPageApi(this.mcontentid);
       // this.hasLoaded = it ? "y" : "n";
     });
@@ -37,10 +40,11 @@ export class DeliveryOrderDetailPage implements OnInit {
   }
 
   getOwnOrder() {
-    this.data$ = this.userSvc.getOwnOrder("string");
+    this.data$ = this.userSvc.getOwnOrder("637293690098220976");
     this.data$.then(it => {
       console.log(it);
     })
   }
 
+  public ParseToTwoDecimal(value: number) { return this.parse.ParseToTwoDecimal(value); }
 }
