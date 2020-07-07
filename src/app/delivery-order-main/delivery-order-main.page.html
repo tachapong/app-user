@@ -151,10 +151,11 @@
           <ion-row class="ion-padding-start">
             <ion-col class="ion-no-padding text-hidden">
               <ion-label color="danger">
-                <h3> {{ item.option }}
+                <h3> 
+                  <span *ngIf="item.option">{{ item.option }}</span>
+                  <span *ngIf="!item.option">&nbsp;</span>
                 </h3>
               </ion-label>
-              <span *ngIf="!item.option">&nbsp;</span>
             </ion-col>
             <ion-col class="ion-no-padding" size="auto" *ngIf="false">
               <ion-label color="medium">

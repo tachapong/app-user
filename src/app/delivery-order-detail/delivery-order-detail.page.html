@@ -4,7 +4,7 @@
 </ion-header>
 
 <ion-content mode="ios">
-  <ng-container *ngIf="data$ | async as data">
+  <ng-container *ngIf="data$ as data">
     <ion-item color="tertiary" lines="full">
       <ion-grid class="ion-no-padding ion-padding-vertical">
         <ion-row>
@@ -16,20 +16,20 @@
           <ion-col class="ion-no-padding">
             <ion-label>รวมค่าสินค้า</ion-label>
           </ion-col>
-          <ion-col class="ion-no-padding ion-text-right">฿{{ data.totalPrice | number }}
+          <ion-col class="ion-no-padding ion-text-right">฿{{ data.totalPrice | number:'1.0' }}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="ion-no-padding">ค่าจัดส่ง
           </ion-col>
-          <ion-col class="ion-no-padding ion-text-right">฿{{ data.deliveryPriceTHB }}
+          <ion-col class="ion-no-padding ion-text-right">฿{{ data.deliveryPriceTHB | number:'1.0' }}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="ion-no-padding">ส่วนลด
           </ion-col>
           <!-- TODO ยังไม่ binding-->
-          <ion-col class="ion-no-padding ion-text-right">฿0
+          <ion-col class="ion-no-padding ion-text-right">฿฿{{ data.totalDiscount | number:'1.0' }}
           </ion-col>
         </ion-row>
         <ion-row>
@@ -37,7 +37,7 @@
           </ion-col>
           <!-- TODO ยังไม่รวมส่วนลด -->
           <ion-col class="ion-no-padding ion-text-right">
-            <ion-text>฿{{ data.totalPrice + data.deliveryPriceTHB | number }}</ion-text>
+            <ion-text>฿{{ data.totalProductPrice | number:'1.0' }}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -63,23 +63,45 @@
     </ion-item>
 
     <ion-list lines="full">
-      <ion-item color="tertiary" *ngFor="let item of data.productList">
-        <ion-label color="dark">
-          <p>x{{ item.quantity }} {{ item.name }}</p>
-          <ion-text color="danger">
-            <p *ngIf="item.option" class="ion-text-wrap">{{ item.option }}</p>
-            <p *ngIf="!item.option" class="ion-text-wrap">&nbsp;</p>
+      <ion-item *ngFor="let item of data.productList" color="tertiary" class="ion-no-padding">
+        <ion-grid class="ion-padding-start ion-padding-vertical">
 
-          </ion-text>
-        </ion-label>
-        <ion-label>
-          <ion-note slot="end" class="ion-text-end">
-            <ion-text color="dark">
-              <p>฿{{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}</p>
-              <p>&nbsp;</p>
-            </ion-text>
-          </ion-note>
-        </ion-label>
+          <ion-row class="ion-padding-start">
+            <ion-col class="ion-no-padding">
+              <ion-label>
+                <h3>X{{item.quantity}} {{item.name}}</h3>
+              </ion-label>
+            </ion-col>
+            <ion-col class="ion-no-padding ion-text-end" size="auto">
+              <ion-label>
+                <h3>
+                  <ion-text [color]="item.promoPrice? 'danger' : 'dark'" [ngClass]="{'line-through': item.promoPrice}">
+                    ฿{{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}</ion-text>
+                  <ion-text *ngIf="item.promoPrice">
+                    ฿{{ ParseToTwoDecimal(item.quantity * item.promoPrice) | number:'1.2-2' }}
+                  </ion-text>
+                </h3>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-start">
+            <ion-col class="ion-no-padding">
+                <ion-label color="danger" class="ion-text-wrap">
+                  <h3> 
+                    <span *ngIf="item.option">{{ item.option }}</span>
+                    <span *ngIf="!item.option">&nbsp;</span>
+                  </h3>
+                </ion-label>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="auto" *ngIf="false">
+              <ion-label color="medium">
+                <h3>สถานะ:ยกเลิก</h3>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
       </ion-item>
     </ion-list>
   </ng-container>
