@@ -22,7 +22,6 @@ export class DeliveryOrderMainPage implements OnInit {
 
   ionViewDidEnter() {
     this.svc.setStateChangedHandler((param) => this.OnStateChanged(param));
-    // this.getOwnOrder()
     this.refreshCallBack();
   }
 
@@ -30,7 +29,7 @@ export class DeliveryOrderMainPage implements OnInit {
     return this.svc.initPageApiWithCallBack(this.mcontentid, () => this.refreshCallBack())
       .then(_ => {
         return this.svc.getApiData(this.mcontentid);
-        // return this.userSvc.getOwnOrder("637293690098220976");
+        // return this.userSvc.getOwnOrder("111");
       })
   }
 
@@ -43,7 +42,6 @@ export class DeliveryOrderMainPage implements OnInit {
       this.statusShipping = it.shippingDate != null;
       this.statusDone = it.destinationDate != null;
       this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
-
       console.log(it);
       this.svc.initPageApi(this.mcontentid);
       this.hasLoaded = it ? "y" : "n";
@@ -54,8 +52,14 @@ export class DeliveryOrderMainPage implements OnInit {
   }
 
   OnStateChanged(state) {
-    this.refreshCallBack();
-
+    let loadState$ = this.svc.getApiData(this.mcontentid);
+    this.data$ = loadState$;
+    loadState$.then((it: any) => {
+      this.statusReceived = it.acceptRequestDate != null; 
+      this.statusShipping = it.shippingDate != null;
+      this.statusDone = it.destinationDate != null;
+      this.hasLoaded = it ? "y" : "n";
+    });
     // switch (state) {
     //   case "recieved":
     //     this.statusRecieved = true;break;

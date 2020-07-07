@@ -126,28 +126,49 @@
       </ion-label>
     </ion-item>
     <ion-list lines="full">
-      <ion-item color="tertiary" *ngFor="let item of data.productList">
-        <ion-label color="dark">
-          <p>x{{ item.quantity }} {{ item.name }}</p>
-          <ion-text color="danger">
-            <p *ngIf="item.option" class="ion-text-wrap">{{ item.option }}</p>
-            <p *ngIf="!item.option" class="ion-text-wrap">&nbsp;</p>
+      <ion-item *ngFor="let item of data.productList" color="tertiary" class="ion-no-padding">
+        <ion-grid class="ion-padding-start ion-padding-vertical text-hidden">
 
-          </ion-text>
-        </ion-label>
-        <ion-label>
-          <ion-note slot="end" class="ion-text-end">
-            <ion-text color="dark">
-              <p>฿{{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}</p>
-              <p>&nbsp;</p>
-            </ion-text>
-          </ion-note>
-        </ion-label>
+          <ion-row class="ion-padding-start">
+            <ion-col class="ion-no-padding text-hidden">
+              <ion-label>
+                <h3>X{{item.quantity}} {{item.name}}</h3>
+              </ion-label>
+            </ion-col>
+            <ion-col class="ion-no-padding ion-text-end" size="auto">
+              <ion-label>
+                <h3>
+                  <ion-text [color]="item.promoPrice? 'danger' : 'dark'" [ngClass]="{'line-through': item.promoPrice}">
+                    ฿{{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}</ion-text>
+                  <ion-text *ngIf="item.promoPrice">
+                    ฿{{ ParseToTwoDecimal(item.quantity * item.promoPrice) | number:'1.2-2' }}
+                  </ion-text>
+                </h3>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-start">
+            <ion-col class="ion-no-padding text-hidden">
+              <ion-label color="danger">
+                <h3> {{ item.option }}
+                </h3>
+              </ion-label>
+              <span *ngIf="!item.option">&nbsp;</span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="auto" *ngIf="false">
+              <ion-label color="medium">
+                <h3>สถานะ:ยกเลิก</h3>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
       </ion-item>
     </ion-list>
 
   </ng-container>
-   <ng-container *ngIf="!hasLoaded">
+  <ng-container *ngIf="!hasLoaded">
     <ion-item lines="none">
       <ion-avatar slot="start">
         <ion-skeleton-text animated></ion-skeleton-text>
