@@ -16,7 +16,7 @@
           <b>฿&nbsp;{{ data.product?.price | number }}</b>
         </ion-note>
       </ion-item>
-      <ion-list color="tertiary" *ngIf="data.options != null">
+      <ion-list color="tertiary" *ngIf="data.options?.length > 0">
         <ion-item lines="none" color="tertiary">
           <ion-thumbnail slot="start">
           </ion-thumbnail>

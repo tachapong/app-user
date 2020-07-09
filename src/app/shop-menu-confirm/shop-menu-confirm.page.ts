@@ -44,6 +44,7 @@ export class ShopMenuConfirmPage implements OnInit {
     return this.svc.initPageApi(this.mcontentid)
       .then(_ => {
         return this.svc.getApiData(this.mcontentid);
+        // return this.userSvc.getProductDetail("637291751099055736")
       })
   }
 

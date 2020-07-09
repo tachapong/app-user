@@ -44,6 +44,7 @@ export class DeliveryOrderMainPage implements OnInit {
       this.statusShipping = it.shippingDate != null;
       this.statusDone = it.destinationDate != null;
       this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
+      this.title = it.delivery.name;
       console.log(it);
       this.svc.initPageApi(this.mcontentid);
       this.hasLoaded = it ? "y" : "n";

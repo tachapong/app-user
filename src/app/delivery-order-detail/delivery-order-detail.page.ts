@@ -4,6 +4,7 @@ import { IonManaLib } from 'ion-m-lib';
 import { ParseDataProvider } from 'src/providers/parse-data';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
+import { strict } from 'assert';
 
 @Component({
   selector: 'app-delivery-order-detail',
@@ -15,13 +16,21 @@ export class DeliveryOrderDetailPage implements OnInit {
   public title: string = "";
   public hasLoaded: string;
   private mcontentid = "637290989254530299";
-  public data$: Observable<object>;;
+  public data$: Observable<object>;
   constructor(private userSvc: UserService, private svc: IonManaLib, private parse: ParseDataProvider, private activateRoute: ActivatedRoute) {
   }
 
   ionViewDidEnter() {
+    // this.svc.initPageApi(this.mcontentid)
+    this.data$ = this.activateRoute.paramMap.pipe(() => window.history.state);
+    let dataObserb = this.data$;
+    let myData = JSON.stringify(dataObserb);
+    let nameChar = '"name":"';
+    myData = myData.slice(myData.lastIndexOf('restaurant":{'), myData.indexOf('}'));
+    myData = myData.slice(myData.lastIndexOf(nameChar) + nameChar.length);
+    let mySplitted = myData.split('"');
+    this.title = mySplitted[0] ? mySplitted[0] : "";
     this.svc.initPageApi(this.mcontentid)
-    this.data$ = this.activateRoute.paramMap.pipe(() => window.history.state);    
   }
 
   // private loadData$() {
