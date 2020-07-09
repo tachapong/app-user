@@ -24,7 +24,7 @@ export class UserService implements IUserService {
   }
 
   async getOwnOrder(orderId: string): Promise<any> {
-    let apiUrl = this.baseUrl + "GetOwnOrder/" + orderId;
+    let apiUrl = this.baseUrl + "GetOwnOrder?endpointid=" + orderId;
     return this.http.get(apiUrl).toPromise();
   }
 
