@@ -18,6 +18,10 @@ export class DeliveryOrderMainPage implements OnInit {
   public statusReceived: boolean = false;
   public statusShipping: boolean = false;
   public statusDone: boolean = false;
+  public statusCancel: boolean = false;
+  public dateReceived: Date;
+  public dateShipping: Date;
+  public dateDone: Date;
   private dataParam: any;
   constructor(private userSvc: UserService, private svc: IonManaLib, private router: Router, private parse: ParseDataProvider, private activateRoute: ActivatedRoute) { }
 
@@ -43,6 +47,10 @@ export class DeliveryOrderMainPage implements OnInit {
       this.statusReceived = it.acceptRequestDate != null;
       this.statusShipping = it.shippingDate != null;
       this.statusDone = it.destinationDate != null;
+      this.statusCancel = it.cancelRequestId != null;
+      this.dateReceived = it.acceptRequestDate ? it.acceptRequestDate : null;
+      this.dateShipping = it.shippingDate ? it.shippingDate : null;
+      this.dateDone = it.destinationDate ? it.destinationDate : null;
       this.setUserLocation(it.customer.address, it.customer.latitude, it.customer.longitude, it.customer.phoneNumber, it.customer.remark);
       this.title = it.delivery.name;
       console.log(it);
@@ -55,26 +63,35 @@ export class DeliveryOrderMainPage implements OnInit {
   }
 
   OnStateChanged(state) {
-    let loadState$ = this.svc.getApiData(this.mcontentid);
-    this.data$ = loadState$;
-    loadState$.then((it: any) => {
-      this.statusReceived = it.acceptRequestDate != null;
-      this.statusShipping = it.shippingDate != null;
-      this.statusDone = it.destinationDate != null;
-      this.hasLoaded = it ? "y" : "n";
-    });
-    // switch (state) {
-    //   case "recieved":
-    //     this.statusRecieved = true;break;
-    //   case "shipping":
-    //     this.statusRecieved = true;
-    //     this.statusShipping = true;break;
-    //   case "done":
-    //     this.statusRecieved = true;
-    //     this.statusShipping = true;
-    //     this.statusDone = true;break;
-    //   default: break;
-    // }
+    // let loadState$ = this.svc.getApiData(this.mcontentid);
+    // this.data$ = loadState$;
+    // loadState$.then((it: any) => {
+    //   this.statusReceived = it.acceptRequestDate != null;
+    //   this.statusShipping = it.shippingDate != null;
+    //   this.statusDone = it.destinationDate != null;
+    //   this.hasLoaded = it ? "y" : "n";
+    // });
+    switch (state) {
+      case "acceptRequest":
+        this.statusReceived = true;
+        this.dateReceived = new Date();
+        break;
+      case "shipping":
+        this.statusShipping = true;
+        this.dateShipping = new Date();
+        break;
+      case "destination":
+        this.statusDone = true;
+        this.dateDone = new Date();
+        break;
+      case "cancelRequest":
+        this.statusCancel = true;
+        break;
+      case "cancelDeny":
+        this.statusCancel = false;
+        break;
+      default: break;
+    }
   }
 
   onCancel(endpoint: string) {
@@ -85,7 +102,7 @@ export class DeliveryOrderMainPage implements OnInit {
 
   onDetail() {
     // this.router.navigate(['/delivery-order-detail'], { queryParams: this.dataParam });
-    this.router.navigateByUrl('/delivery-order-detail', { state: this.dataParam  });
+    this.router.navigateByUrl('/delivery-order-detail', { state: this.dataParam });
 
   }
 
