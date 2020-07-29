@@ -39,9 +39,9 @@
           <li>
             <div [class]="statusReceived ? 'nodeSuccess' : 'nodeUnSuccess'"></div>
             <ion-text color="medium">
-              <p *ngIf="data.acceptRequestDate == null">รับออเดอร์</p>
+              <p *ngIf="!statusReceived">รับออเดอร์</p>
             </ion-text>
-            <p *ngIf="data.acceptRequestDate != null">รับออเดอร์ ({{ dateReceived | date:'H:mm' }} น.)</p>
+            <p *ngIf="statusReceived">รับออเดอร์ ({{ dateReceived | date:'H:mm' }} น.)</p>
           </li>
 
           <li>
@@ -50,9 +50,9 @@
           <li>
             <div [class]="statusShipping ? 'nodeSuccess' : 'nodeUnSuccess'"></div>
             <ion-text color="medium">
-              <p *ngIf="data.shippingDate == null">จัดส่ง</p>
+              <p *ngIf="!statusShipping">จัดส่ง</p>
             </ion-text>
-            <p *ngIf="data.shippingDate != null">จัดส่ง ({{ dateShipping | date:'H:mm' }} น.)</p>
+            <p *ngIf="statusShipping">จัดส่ง ({{ dateShipping | date:'H:mm' }} น.)</p>
           </li>
 
           <li>
@@ -61,9 +61,9 @@
           <li>
             <div [class]="statusDone ? 'nodeSuccess' : 'nodeUnSuccess'"></div>
             <ion-text color="medium">
-              <p *ngIf="data.destinationDate == null">ของถึงแล้ว</p>
+              <p *ngIf="!statusDone">ของถึงแล้ว</p>
             </ion-text>
-            <p *ngIf="data.destinationDate != null">ของถึงแล้ว ({{ dateDone | date:'H:mm' }} น.)</p>
+            <p *ngIf="statusDone">ของถึงแล้ว ({{ dateDone | date:'H:mm' }} น.)</p>
           </li>
         </div>
       </ion-row>

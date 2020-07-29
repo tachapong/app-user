@@ -62,7 +62,7 @@ export class DeliveryOrderMainPage implements OnInit {
   ngOnInit() {
   }
 
-  OnStateChanged(state) {
+  OnStateChanged(state: string) {
     // let loadState$ = this.svc.getApiData(this.mcontentid);
     // this.data$ = loadState$;
     // loadState$.then((it: any) => {
@@ -70,9 +70,9 @@ export class DeliveryOrderMainPage implements OnInit {
     //   this.statusShipping = it.shippingDate != null;
     //   this.statusDone = it.destinationDate != null;
     //   this.hasLoaded = it ? "y" : "n";
-    // });
-    switch (state) {
-      case "acceptRequest":
+    // });    
+    switch (state.toLowerCase()) {
+      case "acceptrequest":
         this.statusReceived = true;
         this.dateReceived = new Date();
         break;
@@ -84,10 +84,10 @@ export class DeliveryOrderMainPage implements OnInit {
         this.statusDone = true;
         this.dateDone = new Date();
         break;
-      case "cancelRequest":
+      case "cancelrequest":
         this.statusCancel = true;
         break;
-      case "cancelDeny":
+      case "canceldeny":
         this.statusCancel = false;
         break;
       default: break;
