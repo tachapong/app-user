@@ -18,8 +18,8 @@ export class DeliveryReceiveConfirmPage implements OnInit {
   public rating: number;
   constructor(private fb: FormBuilder, private userSvc: UserService, private svc: IonManaLib) {
     this.fg = this.fb.group({
-      'rating': null,
-      'note': null,
+      'point': 0,
+      'counsel': null,
     })
 
     this.fg.valueChanges.subscribe(_ => {
@@ -51,12 +51,12 @@ export class DeliveryReceiveConfirmPage implements OnInit {
 
   showRating(rate: number) {
     this.rating = rate;
-    this.fg.get('rating').setValue(this.rating);
+    this.fg.get('point').setValue(this.rating);
   }
 
   OnSubmit() {
-    console.log(this.fg.get('rating').value);
-    console.log(this.fg.get('note').value);
+    // console.log(this.fg.get('point').value);
+    // console.log(this.fg.get('counsel').value);
     if (this.fg.valid) {
       this.svc.submitFormData(this.mcontentid, this.fg.value);
     }
