@@ -95,9 +95,8 @@ export class DeliveryOrderMainPage implements OnInit {
   }
 
   onCancel(endpoint: string) {
-    // TODO : implement endpoint
-    console.log(endpoint);
-    this.svc.visitEndpoint(this.mcontentid, "https://s.manal.ink/api/escrow/cancel/nafmdtl-" + endpoint);
+    var endpointSplitted  = endpoint.split('-');
+    this.svc.visitEndpoint(this.mcontentid, "https://s.manal.ink/api/escrow/cancel/nafmdtl-" + endpointSplitted[1]);
   }
 
   onDetail() {
