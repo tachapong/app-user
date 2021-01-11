@@ -74,21 +74,21 @@ export class DeliveryOrderMainPage implements OnInit {
     switch (state.toLowerCase()) {
       case "acceptrequest":
         this.statusReceived = true;
+        this.statusCancel = false;
         this.dateReceived = new Date();
         break;
       case "shipping":
         this.statusShipping = true;
+        this.statusCancel = false;
         this.dateShipping = new Date();
         break;
       case "destination":
         this.statusDone = true;
+        this.statusCancel = false;
         this.dateDone = new Date();
         break;
       case "cancelrequest":
         this.statusCancel = true;
-        break;
-      case "canceldeny":
-        this.statusCancel = false;
         break;
       default: break;
     }
