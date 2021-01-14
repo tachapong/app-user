@@ -1,8 +1,18 @@
 
-ion-input{
-    border:1px solid var(--ion-color-medium);
-    border-radius: 1rem;
+// ion-input{
+//     border:1px solid var(--ion-color-medium);
+//     border-radius: 1rem;
+// }
+// ion-slide{
+//     width:200px;
+// }
+
+.shop-img{
+    height: 64px !important;
+    width: 120px !important;
 }
-ion-slide{
-    width:200px;
+
+ion-avatar {
+    width: unset !important;
+    height: unset !important;
 }

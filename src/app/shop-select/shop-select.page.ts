@@ -32,6 +32,8 @@ export class ShopSelectPage implements OnInit {
   private loadData$() {
     return this.svc.initPageApi(this.mcontentid)
       .then(_ => {
+        return this.svc.callApiGet(this.mcontentid,"http://delivery-3rd-api.azurewebsites.net/api/Mana3rd/GetCurrentlyOpenedRestaurants");
+
         return this.svc.getApiData(this.mcontentid);
       })
   }
