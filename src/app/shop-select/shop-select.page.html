@@ -20,9 +20,9 @@
           <h2><b>{{ item.name }}</b></h2>
           <ion-text color="medium">
             <h3 class="ion-margin">
-              หมวดหมู่
+              {{ item.classification}}
               <br>
-              <img width="10" height="10" src="assets/imgs/timered.png">&nbsp;xx นาที
+              <img width="10" height="10" src="assets/imgs/timered.png">&nbsp;{{ item.predictDeliveryTotalMinutes }} นาที
             </h3>
           </ion-text>
         </ion-label>
