@@ -29,6 +29,14 @@
       </ion-item>
     </ion-list>
   </ng-container>
+  <ng-container *ngIf="hasLoaded == 'n'">
+      <div class="ion-text-center location-center">
+        <img height="45" src="assets/imgs/location.png"/>
+        <ion-label>
+          <h3>ขออภัยตำแหน่งของคุณ<br>อยู่นอกพื้นที่บริการ</h3>
+        </ion-label>
+      </div>
+  </ng-container>
 
   <ng-container *ngIf="!hasLoaded">
     <ion-item lines="none">
