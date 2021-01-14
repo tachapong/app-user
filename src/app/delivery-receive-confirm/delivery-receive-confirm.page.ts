@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/services/user.service';
 import { IonManaLib } from 'ion-m-lib';
 
@@ -15,10 +15,12 @@ export class DeliveryReceiveConfirmPage implements OnInit {
   private mcontentid = "637290989479516109";
   public data$ = Promise.resolve([]);
   public fg: FormGroup;
-  public rating: number;
+  public riderRating: number;
+  public restaurantRating: number;
   constructor(private fb: FormBuilder, private userSvc: UserService, private svc: IonManaLib) {
     this.fg = this.fb.group({
-      'point': 0,
+      'riderPoint': [0, [Validators.required, Validators.min(1)]],
+      'restaurantPoint': [0, [Validators.required, Validators.min(1)]],
       'counsel': null,
     })
 
@@ -49,13 +51,18 @@ export class DeliveryReceiveConfirmPage implements OnInit {
   ngOnInit() {
   }
 
-  showRating(rate: number) {
-    this.rating = rate;
-    this.fg.get('point').setValue(this.rating);
+  showRiderRating(rate: number) {
+    this.riderRating = rate;
+    this.fg.get('riderPoint').setValue(this.riderRating);
+  }
+
+  showResataurantRating(rate: number) {
+    this.restaurantRating = rate;
+    this.fg.get('restaurantPoint').setValue(this.restaurantRating);
   }
 
   OnSubmit() {
-    // console.log(this.fg.get('point').value);
+    // console.log(this.fg.get('riderPoint').value);
     // console.log(this.fg.get('counsel').value);
     if (this.fg.valid) {
       this.svc.submitFormData(this.mcontentid, this.fg.value);

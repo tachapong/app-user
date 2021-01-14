@@ -169,6 +169,44 @@ H3 ion-skeleton-text {
     height: 14px;
     width: 60%;
 }
+
+
+ion-avatar.avatar-xs {
+    width: 18px;
+    height: 18px;
+}
+ion-avatar.avatar-s {
+    width: 30px;
+    height: 30px;
+}
+
+ion-avatar.avatar-m {
+    width: 45px;
+    height: 45px;
+}
+ion-avatar.avatar-l {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-xs {
+    width: 18px;
+    height: 18px;
+}
+.logo-s {
+    width: 30px;
+    height: 30px;
+}
+.logo-m {
+    width: 45px;
+    height: 45px;
+}
+
+.logo-l {
+    width: 60px;
+    height: 60px;
+}
+
   // Fonts
 // --------------------------------------------------
 @font-face {
