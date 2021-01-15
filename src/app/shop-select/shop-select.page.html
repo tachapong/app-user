@@ -14,7 +14,7 @@
       </ion-list-header>
       <ion-item color="tertiary" lines="inset" *ngFor="let item of data" (click)="onSelect(item._id)">
         <ion-avatar>
-          <img class="shop-img non-circle" [src]="item.logoImage">
+          <img class="shop-img non-circle" [src]="item.logoImage ? item.logoImage : 'assets/imgs/dfrestcover.png'">
         </ion-avatar>
         <ion-label class="ion-margin-start">
           <h2><b>{{ item.name }}</b></h2>

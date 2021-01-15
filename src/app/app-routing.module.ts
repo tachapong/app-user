@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'delivery-receive-confirm',
     loadChildren: () => import('./delivery-receive-confirm/delivery-receive-confirm.module').then( m => m.DeliveryReceiveConfirmPageModule)
+  },  {
+    path: 'delivery-cancel-completed',
+    loadChildren: () => import('./delivery-cancel-completed/delivery-cancel-completed.module').then( m => m.DeliveryCancelCompletedPageModule)
   },
+
 
 ];
 
