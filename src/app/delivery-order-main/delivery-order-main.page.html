@@ -7,7 +7,7 @@
 <ion-content mode="ios">
   <ng-container *ngIf="data$ | async as data">
     <ion-item color="tertiary" lines="none" class="ion-margin-bottom">
-      <ion-avatar class="avatar-small" slot="start">
+      <ion-avatar class="avatar-s" slot="start">
         <img [src]="data.delivery?.logoImage" />
       </ion-avatar>
       <ion-label><b>{{ data.delivery?.name }}</b> </ion-label>
@@ -118,7 +118,7 @@
     </ion-item>
 
     <ion-item color="tertiary" lines="none">
-      <ion-avatar slot="start" class="avatar-small">
+      <ion-avatar slot="start" class="avatar-s">
         <img [src]="data.restaurant?.logoImage">
       </ion-avatar>
       <ion-label>
