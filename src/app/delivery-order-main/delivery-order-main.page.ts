@@ -34,7 +34,7 @@ export class DeliveryOrderMainPage implements OnInit {
     return this.svc.initPageApiWithCallBack(this.mcontentid, () => this.refreshCallBack())
       .then(_ => {
         return this.svc.getApiData(this.mcontentid);
-        // return this.userSvc.getOwnOrder("neschfd-74");
+        // return this.userSvc.getOwnOrder("neschfd-86");
       })
   }
 
@@ -43,6 +43,8 @@ export class DeliveryOrderMainPage implements OnInit {
     let load$ = this.loadData$();
     this.data$ = load$;
     load$.then((it: any) => {
+      console.log(it);
+      
       this.dataParam = it;
       this.statusReceived = it.acceptRequestDate != null;
       this.statusShipping = it.shippingDate != null;

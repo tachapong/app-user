@@ -139,9 +139,10 @@
               <ion-label>
                 <h3>
                   <ion-text [color]="item.promoPrice? 'danger' : 'dark'" [ngClass]="{'line-through': item.promoPrice}">
-                    ฿{{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}</ion-text>
+                    {{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}&nbsp;<small>THB</small>
+                  </ion-text>
                   <ion-text *ngIf="item.promoPrice">
-                    ฿{{ ParseToTwoDecimal(item.quantity * item.promoPrice) | number:'1.2-2' }}
+                    {{ ParseToTwoDecimal(item.quantity * item.promoPrice) | number:'1.2-2' }}&nbsp;<small>THB</small>
                   </ion-text>
                 </h3>
               </ion-label>
@@ -151,7 +152,7 @@
           <ion-row class="ion-padding-start">
             <ion-col class="ion-no-padding text-hidden">
               <ion-label color="danger">
-                <h3> 
+                <h3>
                   <span *ngIf="item.option">{{ item.option }}</span>
                   <span *ngIf="!item.option">&nbsp;</span>
                 </h3>
