@@ -18,7 +18,9 @@
             <h2>{{item.classification}}</h2>
             <h2>&nbsp;</h2>
             <ion-note>{{item.note}}</ion-note>
-            <ion-note><small><ion-icon color="warning" name="star"></ion-icon></small>&nbsp;{{ item.rating }} - นาที - บาท</ion-note>
+            <ion-note><small>
+                <ion-icon color="warning" name="star"></ion-icon>
+              </small>&nbsp;{{ item.rating }} - นาที - บาท</ion-note>
           </ion-label>
         </ion-item>
       </div>
@@ -43,8 +45,7 @@
             <ion-item [disabled]="p.isSuspended" *ngFor="let p of c?.products" color="tertiary"
               (click)="onSelect(p._id)">
               <ion-thumbnail slot="start" class="ion-margin-vertical">
-                <img
-                  [src]=" p.previewImageUrl ? p.previewImageUrl :'assets/imgs/dfmenu.png'">
+                <img [src]="p.previewImageUrl ? p.previewImageUrl :'assets/imgs/dfmenu.png'">
               </ion-thumbnail>
               <ion-text>
                 <ion-label>

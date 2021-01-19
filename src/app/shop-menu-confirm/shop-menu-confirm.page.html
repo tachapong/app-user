@@ -9,11 +9,17 @@
     <div class="ion-margin-top" color="tertiary">
       <ion-item color="tertiary">
         <ion-thumbnail slot="start" class="ion-margin-top">
-          <img [src]="data.product?.previewImageUrl">
+          <img [src]="data.product?.previewImageUrl ? data.product?.previewImageUrl :'assets/imgs/dfmenu.png'">
         </ion-thumbnail>
-        <ion-label><b>{{ data.product?.name }}</b></ion-label>
+        <ion-label>
+          <b>{{ data.product?.name }}</b>
+          <p>&nbsp;</p>
+        </ion-label>
         <ion-note color="dark" class="ion-text-end">
-          <b>{{ data.product?.price | number }}&nbsp;<small>THB</small></b>
+          <ion-label>
+            <h2><b>{{ data.product?.price | number }}&nbsp;<small>THB</small></b></h2>
+            <h2><b>&nbsp;<small></small></b></h2>
+          </ion-label>
         </ion-note>
       </ion-item>
       <ion-list color="tertiary" *ngIf="data.options?.length > 0">
