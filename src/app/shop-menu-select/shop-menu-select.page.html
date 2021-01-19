@@ -8,8 +8,9 @@
   <ng-container *ngIf="hasLoaded == 'y'">
     <ion-list *ngIf="data$ | async as data" lines="inset" class="ion-no-padding">
       <div *ngIf="data?.restaurant as item">
-        <img [src]="item.bannerImage != null && item.bannerImage != 'string' ? item.bannerImage:'https://fk.lnwfile.com/nd9ddz.jpg'" width="450"
-          height="170" />
+        <img
+          [src]="item.bannerImage != null && item.bannerImage != 'string' ? item.bannerImage:'https://fk.lnwfile.com/nd9ddz.jpg'"
+          width="450" height="170" />
         <ion-item lines="full" color="tertiary">
           <ion-label>
             <ion-note> เปิด 11.00 - 19.00 น. ทุกวัน</ion-note>
@@ -17,7 +18,7 @@
             <h2>{{item.classification}}</h2>
             <h2>&nbsp;</h2>
             <ion-note>{{item.note}}</ion-note>
-            <ion-note>*4.8 15 นาที 10 บาท</ion-note>
+            <ion-note><small><ion-icon color="warning" name="star"></ion-icon></small>&nbsp;{{ item.rating }} - นาที - บาท</ion-note>
           </ion-label>
         </ion-item>
       </div>
@@ -38,10 +39,12 @@
 
         <div *ngFor="let c of cate">
           <div *ngIf="c.categoryId == segmentValue">
-            <ion-item [disabled]="p.isSuspended" *ngFor="let p of c?.products" color="tertiary" (click)="onSelect(p._id)">
+
+            <ion-item [disabled]="p.isSuspended" *ngFor="let p of c?.products" color="tertiary"
+              (click)="onSelect(p._id)">
               <ion-thumbnail slot="start" class="ion-margin-vertical">
                 <img
-                  [src]=" p.previewImageUrl ? p.previewImageUrl :'https://travel.mthai.com/app/uploads/2014/07/%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%97%E0%B8%B4%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B8%A2%E0%B9%86-14.jpg'">
+                  [src]=" p.previewImageUrl ? p.previewImageUrl :'assets/imgs/dfmenu.png'">
               </ion-thumbnail>
               <ion-text>
                 <ion-label>
@@ -55,6 +58,7 @@
               <ion-note color="dark" slot="end">
                 <ion-label>
                   <h2><b>{{p.price | number}} <small>THB</small></b></h2>
+                  <!-- TODO : แสดงสินค้าลดราคา -->
                   <h2>&nbsp;</h2>
                 </ion-label>
               </ion-note>
