@@ -8,7 +8,7 @@
   <ng-container *ngIf="data$ | async as data">
     <ion-item color="tertiary" lines="none" class="ion-margin-bottom">
       <ion-avatar class="avatar-s" slot="start">
-        <img [src]="data.delivery?.logoImage" />
+        <img [src]="data.delivery?.logoImage ? data.delivery?.logoImage : 'assets/imgs/dfdeliverycom.png'" />
       </ion-avatar>
       <ion-label><b>{{ data.delivery?.name }}</b> </ion-label>
     </ion-item>
@@ -76,7 +76,7 @@
             <h3>
               <ion-icon color="medium" name="call"></ion-icon>
               <b>
-                ติดต่อ
+                &nbsp;ติดต่อ
               </b>
             </h3>
           </ion-label>
@@ -122,7 +122,7 @@
         <img [src]="data.restaurant?.logoImage ? data.restaurant?.logoImage : 'assets/imgs/dfrest.png'">
       </ion-avatar>
       <ion-label>
-        <h2><b> {{ data.restaurant?.name }} </b></h2>
+        <h3><b> {{ data.restaurant?.name }} </b></h3>
       </ion-label>
     </ion-item>
     <ion-list lines="full">
