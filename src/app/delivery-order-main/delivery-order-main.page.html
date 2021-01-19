@@ -17,7 +17,7 @@
       <ion-label>
         <h2><b>สถานะจัดส่ง</b></h2>
         <ion-text color="medium">
-          <p>เวลาที่จัดส่ง 15 นาที</p>
+          <p>เวลาที่จัดส่ง {{data.predictDeliveryTotalMinutes}} นาที</p>
         </ion-text>
       </ion-label>
     </ion-item>
@@ -74,7 +74,7 @@
         <ion-text color="dark">
           <ion-label>
             <h3>
-              <ion-icon name="call-outline"></ion-icon>
+              <ion-icon color="medium" name="call"></ion-icon>
               <b>
                 ติดต่อ
               </b>
@@ -119,52 +119,56 @@
 
     <ion-item color="tertiary" lines="none">
       <ion-avatar slot="start" class="avatar-s">
-        <img [src]="data.restaurant?.logoImage">
+        <img [src]="data.restaurant?.logoImage ? data.restaurant?.logoImage : 'assets/imgs/dfrest.png'">
       </ion-avatar>
       <ion-label>
         <h2><b> {{ data.restaurant?.name }} </b></h2>
       </ion-label>
     </ion-item>
     <ion-list lines="full">
-      <ion-item *ngFor="let item of data.productList" color="tertiary" class="ion-no-padding">
-        <ion-grid class="ion-padding-start ion-padding-vertical text-hidden">
+      <ion-item *ngFor="let item of data.productList" color="tertiary" class="ion-no-padding ion-padding-bottom">
+        <ion-grid class="ion-no-padding text-hidden ion-padding-start">
 
-          <ion-row class="ion-padding-start">
-            <ion-col class="ion-no-padding text-hidden">
-              <ion-label>
-                <h3>X{{item.quantity}} {{item.name}}</h3>
-              </ion-label>
-            </ion-col>
-            <ion-col class="ion-no-padding ion-text-end" size="auto">
-              <ion-label>
-                <h3>
-                  <ion-text [color]="item.promoPrice? 'danger' : 'dark'" [ngClass]="{'line-through': item.promoPrice}">
-                    {{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}&nbsp;<small>THB</small>
-                  </ion-text>
-                  <ion-text *ngIf="item.promoPrice">
-                    {{ ParseToTwoDecimal(item.quantity * item.promoPrice) | number:'1.2-2' }}&nbsp;<small>THB</small>
-                  </ion-text>
-                </h3>
-              </ion-label>
+          <ion-row class="ion-no-padding ion-align-items-center ion-padding-top">
+            <ion-col class="ion-padding-start">
+              <ion-row>
+                <ion-col size="6">
+                  <ion-label>
+                    <h3>X{{item.quantity}} {{item.name}}</h3>
+                  </ion-label>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-label>
+                    <h3 class="ion-text-right">
+                      <ion-text *ngIf="!item.promoPrice">
+                        {{ ParseToTwoDecimal(item.quantity * item.price) | number:'1.2-2' }}&nbsp;<small>THB</small>
+                      </ion-text>
+                      <ion-text *ngIf="item.promoPrice">
+                        {{ ParseToTwoDecimal(item.quantity * item.promoPrice) | number:'1.2-2' }}&nbsp;<small>THB</small>
+                      </ion-text>
+                    </h3>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-label color="danger">
+                    <h3>
+                      <span *ngIf="item.option">{{ item.option }}</span>
+                      <span *ngIf="!item.option">&nbsp;</span>
+                    </h3>
+                  </ion-label>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-label color="medium" *ngIf="false">
+                    <h3>สถานะ:ยกเลิก</h3>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+
             </ion-col>
           </ion-row>
-
-          <ion-row class="ion-padding-start">
-            <ion-col class="ion-no-padding text-hidden">
-              <ion-label color="danger">
-                <h3>
-                  <span *ngIf="item.option">{{ item.option }}</span>
-                  <span *ngIf="!item.option">&nbsp;</span>
-                </h3>
-              </ion-label>
-            </ion-col>
-            <ion-col class="ion-no-padding" size="auto" *ngIf="false">
-              <ion-label color="medium">
-                <h3>สถานะ:ยกเลิก</h3>
-              </ion-label>
-            </ion-col>
-          </ion-row>
-
         </ion-grid>
       </ion-item>
     </ion-list>
