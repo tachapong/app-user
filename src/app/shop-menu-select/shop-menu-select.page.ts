@@ -53,6 +53,6 @@ export class ShopMenuSelectPage implements OnInit {
   }
 
   onSelect(productId: string) {
-    this.svc.visitEndpoint(this.mcontentid, "https://s.manal.ink/np/npdtext-deliverybanmore$" + productId + "~delivery");
+    this.svc.visitEndpoint(this.mcontentid, "https://s.manal.ink/np/npdtdtl-" + productId + "~delivery");
   }
 }
